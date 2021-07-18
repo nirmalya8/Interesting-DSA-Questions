@@ -1,24 +1,23 @@
 /*  
     Problem Statement: 
-    Given a SORTED array with duplicate elements and a search element,
-    find the first and last occurance of the search element.
+    Given a SORTED array and an element, find the number of times it occurs in the array. O(log N)
 
     Input-Output:
     Eg. [2,4,10,10,10,18,20]
-    Search Element: 10
-    First Occurance: 2
-    Last Occurance: 4
+    Element: 10
+    Count: 3
 
     Modifying Binary Search to find first occurance of search element:
     1. Setting of low, high and mid requires no modifications
     2. Set a variable first = -1, which will hold first index of the search element 
     3. The code for Binary Search remains the same, with only one slight modification:
             if the mid element is equal to the search element,
-                store mid in first
                 set high to mid-1 (As if there multiple occurances then the first occurance will occur before mid
                 and if mid is the first occurance then it is already stored in the result)
+    4. Outside the loop set first <- mid
 
-    For the last occurance,if mid element is equal to the search element, store it in a variable and set low to mid+1
+    For the last occurance,if mid element is equal to the search element, set low to mid+1. Outside the loop set last <- mid
+    Count of the element will be last-first+1. 
 
 */
 
@@ -29,14 +28,14 @@ using namespace std;
 int main()
 {
     // Taking Inputs
-    int n,search;
+    int n,element;
     cin>>n;
     int a[n];
     for(int i=0;i<n;i++)
     {
         cin>>a[i];
     }
-    cin>>search;
+    cin>>element;
 
     // performing binary search for the first occurance of the search element
     int low = 0;
@@ -48,12 +47,11 @@ int main()
     {
         mid = low + (high-low)/2;
 
-        if(search == a[mid])
+        if(element == a[mid])
         {
-            first = mid;
             high = mid-1;
         }
-        else if(a[mid]>search)
+        else if(a[mid]>element)
         {
             high = mid-1;
         }
@@ -62,6 +60,7 @@ int main()
             low = mid+1;
         }
     }
+    first = mid;
     if (first == -1) //the search element is not present
     {
         cout<<"Search Not Found"<<endl;
@@ -78,12 +77,11 @@ int main()
     {
         mid = low + (high-low)/2;
 
-        if(search == a[mid])
+        if(element == a[mid])
         {
-            last = mid;
             low = mid+1;
         }
-        else if(a[mid]>search)
+        else if(a[mid]>element)
         {
             high = mid-1;
         }
@@ -92,8 +90,9 @@ int main()
             low = mid+1;
         }
     }
+    last = mid;
 
-    cout<<first<<"  "<<last<<endl;
+    cout<<last-first+1<<endl;
     return 0;
     
 }
