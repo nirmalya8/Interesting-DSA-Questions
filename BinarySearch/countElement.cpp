@@ -7,7 +7,7 @@
     Element: 10
     Count: 3
 
-    Modifying Binary Search to find first occurance of search element:
+    Modifying Binary Search to count the number of times the search element occurs:
     1. Setting of low, high and mid requires no modifications
     2. Set a variable first = -1, which will hold first index of the search element 
     3. The code for Binary Search remains the same, with only one slight modification:
